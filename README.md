@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Test Execution System
 
 A comprehensive multi-framework test execution system that supports **Cucumber**, **pytest**, and **Robot Framework** with centralized logging, database storage, and web-based management interface.
@@ -130,7 +129,7 @@ docker-compose ps
 docker-compose logs -f web
 ```
 
-## 📖 Usage
+## Usage
 
 ### Web Interface
 
@@ -290,7 +289,7 @@ The system uses PostgreSQL with the following main tables:
 }
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Development
 ```bash
@@ -351,7 +350,7 @@ The system provides built-in metrics through the statistics endpoint:
 - Average execution duration
 - Framework usage statistics
 
-## 🔒 Security
+## Security
 
 ### Authentication
 - API key authentication
@@ -368,7 +367,7 @@ The system provides built-in metrics through the statistics endpoint:
 - Secure credential storage
 - Audit logging
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -394,7 +393,7 @@ flake8 .
 black .
 ```
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
@@ -406,7 +405,7 @@ For support, please:
 3. Create a new issue with detailed information
 4. Contact the development team
 
-## 🗺️ Roadmap
+## Roadmap
 
 ### Version 2.0
 - [ ] Kubernetes deployment support
@@ -424,7 +423,7 @@ For support, please:
 - [ ] Test result comparison
 - [ ] Automated test discovery
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - FastAPI for the excellent web framework
 - PostgreSQL for reliable database storage
@@ -433,4 +432,4 @@ For support, please:
 
 ---
 
-**Built with ❤️ for the testing community** 
+**Built with for the testing community** 
