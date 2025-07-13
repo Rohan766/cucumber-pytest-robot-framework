@@ -1,0 +1,158 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-execution-api
+  namespace: test-execution
+  labels:
+    app: test-execution-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: test-execution-api
+  template:
+    metadata:
+      labels:
+        app: test-execution-api
+    spec:
+      containers:
+      - name: test-execution-api
+        image: ghcr.io/yourusername/test-execution-system:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: test-execution-config
+        - secretRef:
+            name: test-execution-secrets
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: workspace-volume
+          mountPath: /tmp/test_workspaces
+        - name: logs-volume
+          mountPath: /tmp/test_logs
+        - name: reports-volume
+          mountPath: /tmp/test_reports
+      volumes:
+      - name: workspace-volume
+        persistentVolumeClaim:
+          claimName: workspace-pvc
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: logs-pvc
+      - name: reports-volume
+        persistentVolumeClaim:
+          claimName: reports-pvc
+      imagePullSecrets:
+      - name: github-registry-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-execution-postgres
+  namespace: test-execution
+  labels:
+    app: test-execution-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-execution-postgres
+  template:
+    metadata:
+      labels:
+        app: test-execution-postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: test-execution-config
+              key: DB_NAME
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: test-execution-config
+              key: DB_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: test-execution-secrets
+              key: DB_PASSWORD
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        - name: postgres-init
+          mountPath: /docker-entrypoint-initdb.d
+        livenessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - pg_isready
+            - -U
+            - postgres
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+      - name: postgres-init
+        configMap:
+          name: postgres-init-scripts
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+  namespace: test-execution
+data:
+  01-init.sql: |
+    -- This will be automatically executed by postgres container
+    CREATE DATABASE test_execution_db;
+  02-schema.sql: |
+    -- Database schema will be loaded here
+    -- You can copy the content from database_schema.sql 

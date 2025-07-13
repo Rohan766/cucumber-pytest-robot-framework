@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-execution-api
+  namespace: test-execution
+  labels:
+    app: test-execution-api
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+    targetPort: 8000
+    protocol: TCP
+    name: http
+  selector:
+    app: test-execution-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-execution-postgres
+  namespace: test-execution
+  labels:
+    app: test-execution-postgres
+spec:
+  type: ClusterIP
+  ports:
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
+    name: postgres
+  selector:
+    app: test-execution-postgres
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-execution-api-nodeport
+  namespace: test-execution
+  labels:
+    app: test-execution-api
+spec:
+  type: NodePort
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 30080
+    protocol: TCP
+    name: http
+  selector:
+    app: test-execution-api 
