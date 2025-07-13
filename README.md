@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Test Execution System
 
 A comprehensive multi-framework test execution system that supports **Cucumber**, **pytest**, and **Robot Framework** with centralized logging, database storage, and web-based management interface.
