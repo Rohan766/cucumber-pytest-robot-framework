@@ -2,7 +2,7 @@
 
 A comprehensive multi-framework test execution system that supports **Cucumber**, **pytest**, and **Robot Framework** with centralized logging, database storage, and web-based management interface.
 
-## 🚀 Features
+## Features
 
 ### Multi-Framework Support
 - **pytest** - Python testing framework
@@ -10,24 +10,24 @@ A comprehensive multi-framework test execution system that supports **Cucumber**
 - **Robot Framework** - Generic automation framework
 
 ### Core Capabilities
-- ✅ **Automated Test Execution** - Run tests from local directories or GitHub repositories
-- ✅ **Real-time Logging** - Stream logs in real-time with different log levels
-- ✅ **Database Storage** - Store all execution results, logs, and metrics
-- ✅ **Web Interface** - Modern dashboard for test management
-- ✅ **REST API** - Complete API for integration with CI/CD pipelines
-- ✅ **GitHub Integration** - Clone and run tests from GitHub repositories
-- ✅ **Concurrent Execution** - Run multiple test suites simultaneously
-- ✅ **Detailed Reporting** - Generate comprehensive test reports
+- **Automated Test Execution** - Run tests from local directories or GitHub repositories
+- **Real-time Logging** - Stream logs in real-time with different log levels
+- **Database Storage** - Store all execution results, logs, and metrics
+- **Web Interface** - Modern dashboard for test management
+- **REST API** - Complete API for integration with CI/CD pipelines
+- **GitHub Integration** - Clone and run tests from GitHub repositories
+- **Concurrent Execution** - Run multiple test suites simultaneously
+- **Detailed Reporting** - Generate comprehensive test reports
 
 ### Advanced Features
-- 🔄 **Auto-detection** - Automatically detect test frameworks in projects
-- 📊 **Statistics Dashboard** - View execution metrics and trends
-- 🔍 **Log Analysis** - Parse and categorize logs by type and level
-- 📱 **Responsive UI** - Modern, mobile-friendly web interface
-- 🐳 **Docker Support** - Easy deployment with Docker containers
-- 🔐 **Security** - Built-in authentication and authorization
+- **Auto-detection** - Automatically detect test frameworks in projects
+- **Statistics Dashboard** - View execution metrics and trends
+- **Log Analysis** - Parse and categorize logs by type and level
+- **Responsive UI** - Modern, mobile-friendly web interface
+- **Docker Support** - Easy deployment with Docker containers
+- **Security** - Built-in authentication and authorization
 
-## 📋 Architecture
+## Architecture
 
 The system follows a modular architecture with clear separation of concerns:
 
